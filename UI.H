@@ -18,11 +18,12 @@ typedef struct {
 Bottom Bottoms[5][4];
 
 void UI(void);
-void GraphMode(void);
+void initGraph(void);
+void endGraph(void);
 void CNumBox(int x,int y,char ch);
 void initBottoms();
 void showBottoms();
-
+void massage(char *textBuff);
 int max_x,max_y;
 
 
@@ -32,7 +33,7 @@ int max_x,max_y;
 /*                                                                                               */
 /*                                                                                               */
 /*************************************************************************************************/
-void GraphMode(void)
+void initGraph(void)
 {
 	int driver=0,mode;
 	
@@ -42,6 +43,17 @@ void GraphMode(void)
 }
 
 
+/*************************************************************************************************/
+/*                                                                                               */
+/*                                                                                               */
+/*                                                                                               */
+/*                                                                                               */
+/*************************************************************************************************/
+void endGraph(void)
+{
+	getch();
+	closegraph();
+}
 /*************************************************************************************************/
 /*                                                                                               */
 /*                                                                                               */
@@ -85,9 +97,11 @@ void UI(void)
 	
 	cleardevice();
 	rectangle(mleft,mtop,mright,mbottom);
+	
 	rectangle(mleft+2*NUB,mtop+2*NUB,mright-2*NUB,mtop+3*NUB+2*BOX_H);
 	initBottoms();
 	showBottoms();
+	
 }
 
 /*************************************************************************************************/
@@ -135,6 +149,41 @@ void showBottoms()
 	}
 }
 
+
+
+/*************************************************************************************************/
+/*                                                                                               */
+/*                                                                                               */
+/*                                                                                               */
+/*                                                                                               */
+/*************************************************************************************************/
+void massage(char *textBuff)
+{
+	int mleft, mtop, mright, mbottom;
+	int text_box_lx,text_box_ly;
+	int i,j;
+	
+	mleft=max_x/2-(3*BOX_L);
+    mtop=max_y/2-(4*BOX_H+30);
+	mright=max_x/2+(3*BOX_L);   
+	
+	text_box_lx=mright-2*NUB-10;
+	text_box_ly=mtop+3*NUB+2*BOX_H-10;
+	
+	
+	setcolor(WHITE);
+	for(i=0;i<NUB+2*BOX_H-20;i++)
+		line(mleft+2*NUB+10,mtop+2*NUB+10+i,text_box_lx,mtop+2*NUB+10+i);
+	
+	
+	setcolor(BLACK);
+	settextstyle(0,0,2);
+	if((i=strlen(textBuff))<22)
+	{
+		outtextxy(text_box_lx-20-16*i,text_box_ly-BOX_H,textBuff);
+	}
+	
+}
 /*************************************************************************************************/
 /*                                                                                               */
 /*                                                                                               */

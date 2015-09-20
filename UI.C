@@ -2,7 +2,7 @@
 
 main()
 {
-	GraphMode();
+	initGraph();
 	UI();
-	
+	endGraph();
 }
