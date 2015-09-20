@@ -72,11 +72,15 @@ main()
 {
 	int i;
 	int driver=0,mode;
+	int max_x,max_y;
 	registerbgidriver(EGAVGA_driver);
 	
 	initgraph(&driver,&mode, "");
 	resetmouse();
 	showmouse();
+	max_x=getmaxx();
+	max_y=getmaxy();
+	printf("MAxx=%d,maxy=%d",max_x,max_y);
 	while(!kbhit())
 	{
 		if(left_pressed())
