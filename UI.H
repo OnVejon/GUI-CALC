@@ -114,7 +114,7 @@ void initBottoms()
 {
 	int i,j;
 	int mleft, mtop, mright, mbottom;
-	char num_ch[5][4]={"C0.=","123+","456-","789*","()^/"};
+	char num_ch[5][4]={"D0.=","123+","456-","789*","()^/"};
 	
 	mleft=max_x/2-(3*BOX_L);
    

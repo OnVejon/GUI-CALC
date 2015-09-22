@@ -86,30 +86,37 @@ char mouse0x5()
 	int tx,ty;
 	int i=0,j=0;
 	
-    ax = 0x06;
+    ax = 0x03;
 	bx=0;
     mouse(&ax, &bx, &cx, &dx); 
 	
-	if((ax&0x1)==0x1)
+	if(bx==0x1)
 	{
-		
-		
-			tx=Bottoms[i][j].x;
-			ty=Bottoms[i][j].y;
-			while(!((cx>=tx&&cx<=tx+BOX_L)&&(dx>=ty&&dx<=ty+BOX_H/2))&&(i<5&&j<4))
+		delay(10);
+		ax = 0x03;
+		bx=0;
+		mouse(&ax, &bx, &cx, &dx); 
+	
+		if(bx==0x1)
+		{
+			
+			while((i<5&&j<4))
 			{
+				tx=Bottoms[i][j].x;
+				ty=Bottoms[i][j].y;
+				if((cx>=tx&&cx<=tx+BOX_L)&&(dx>=ty&&dx<=ty+BOX_H/2))
+					break;
 				j++;
 				if(j>=4)
 				{
 					i++;
 					j=0;
 				}
-				tx=Bottoms[i][j].x;
-				ty=Bottoms[i][j].y;
+				
 			}
-			if((cx>=tx&&cx<=tx+BOX_L)&&(dx>=ty&&dx<=ty+BOX_H/2))
+			if(i<5&&j<4)
 				return Bottoms[i][j].ch;
-		
+		}
 	}
 	return '\0';
 }

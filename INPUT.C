@@ -1,5 +1,4 @@
-#include "mouse.h"
-
+#include "input.h"
 main()
 {
 	char textbuff[22]={0};
@@ -14,7 +13,7 @@ main()
 	while(!kbhit())
 	{
 		
-		if((ch=mouse0x5())!='\0')
+		if((ch=GetNumCh())!='\0')
 		{
 			if(i>15)
 				i=0;
