@@ -29,7 +29,7 @@ char GetNumCh()
 			ch=getch();
 				
 			
-		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='='||ch=='.'))
+		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='='||ch=='.')||ch==0x1)
 		{
 			return ch;
 		}else if(ch==0x8)

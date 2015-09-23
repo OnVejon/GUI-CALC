@@ -162,6 +162,7 @@ void massage(char *textBuff)
 	int mleft, mtop, mright, mbottom;
 	int text_box_lx,text_box_ly;
 	int i,j;
+	char dot[2]=".";
 	
 	mleft=max_x/2-(3*BOX_L);
     mtop=max_y/2-(4*BOX_H+30);
@@ -175,7 +176,10 @@ void massage(char *textBuff)
 	for(i=0;i<NUB+2*BOX_H-20;i++)
 		line(mleft+2*NUB+10,mtop+2*NUB+10+i,text_box_lx,mtop+2*NUB+10+i);
 	
-	
+	if(howdot(textBuff)==0)
+	{
+		strcat(textBuff,dot);
+	}
 	setcolor(BLACK);
 	settextstyle(0,0,2);
 	if((i=strlen(textBuff))<22)
