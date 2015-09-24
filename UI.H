@@ -15,7 +15,7 @@ typedef struct {
 	int y;
 }Bottom;
 
-Bottom Bottoms[5][4];
+Bottom Bottoms[6][4];
 
 void UI(void);
 void initGraph(void);
@@ -24,6 +24,8 @@ void CNumBox(int x,int y,char ch);
 void initBottoms();
 void showBottoms();
 void massage(char *textBuff);
+
+
 int max_x,max_y;
 
 
@@ -51,7 +53,7 @@ void initGraph(void)
 /*************************************************************************************************/
 void endGraph(void)
 {
-	getch();
+	
 	closegraph();
 }
 /*************************************************************************************************/
@@ -114,13 +116,13 @@ void initBottoms()
 {
 	int i,j;
 	int mleft, mtop, mright, mbottom;
-	char num_ch[5][4]={"D0.=","123+","456-","789*","()^/"};
+	char num_ch[6][4]={"D0.=","123+","456-","789*","()^/","  CE"};
 	
 	mleft=max_x/2-(3*BOX_L);
    
 	mbottom=max_y/2+(4*BOX_H)+30;
 	
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
 	{
 		for(j=0;j<4;j++)
 		{
@@ -129,6 +131,7 @@ void initBottoms()
 			Bottoms[i][j].y=mbottom-((i+1)*(NUB+BOX_H/2)+2*NUB);
 		}
 	}
+	
 }
 
 /*************************************************************************************************/
@@ -140,7 +143,7 @@ void initBottoms()
 void showBottoms()
 {
 	int i,j;
-	for(i=0;i<5;i++)
+	for(i=0;i<6;i++)
 	{
 		for(j=0;j<4;j++)
 		{
@@ -180,6 +183,9 @@ void massage(char *textBuff)
 	{
 		strcat(textBuff,dot);
 	}
+	
+	
+	
 	setcolor(BLACK);
 	settextstyle(0,0,2);
 	if((i=strlen(textBuff))<22)
@@ -188,6 +194,8 @@ void massage(char *textBuff)
 	}
 	
 }
+
+
 /*************************************************************************************************/
 /*                                                                                               */
 /*                                                                                               */

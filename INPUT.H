@@ -27,14 +27,18 @@ char GetNumCh()
 		if((ch=getch())==0x0)
 		{
 			ch=getch();
-				
-			
-		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='='||ch=='.')||ch==0x1)
-		{
-			return ch;
-		}else if(ch==0x8)
+		}else if(ch==0x8||ch=='D'||ch=='d')
 		{
 			return 'D';
+		}else if(ch=='C'||ch=='c')
+		{
+			return 'C';
+		}else if(ch==0x1b||ch=='E'||ch=='e')
+		{
+			return 'E';
+		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='='||ch=='.'||ch=='\x0d'||ch=='('||ch==')'))
+		{
+			return ch;
 		}
 		
 	}
