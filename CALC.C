@@ -4,11 +4,11 @@ main()
 	
 	
 	initGraph();
-	/*resetmouse();
-	showmouse();*/
+	resetmouse();
+	/*showmouse();*/
 	
 	UI();
-	massage("0.");
+	
 	compute();
 	endGraph();
 }

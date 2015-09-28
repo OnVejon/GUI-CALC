@@ -1,9 +1,13 @@
+
 /*************************************************************************************************/
 /*                                                                                               */
 /*                                                                                               */
 /*                                                                                               */
 /*                                                                                               */
 /*************************************************************************************************/
+#ifndef _UI.H_
+#define _UI.H_
+
 #include <GRAPHICS.H>
 #define BOX_L 64
 #define BOX_H 48
@@ -195,6 +199,37 @@ void massage(char *textBuff)
 	
 }
 
+void massage_1(char *textBuff)
+{
+	int mleft, mtop, mright, mbottom;
+	int text_box_lx,text_box_ly;
+	int i,j;
+	
+	
+	mleft=max_x/2-(3*BOX_L);
+    mtop=max_y/2-(4*BOX_H+30);
+	mright=max_x/2+(3*BOX_L);   
+	
+	text_box_lx=mright-2*NUB-10;
+	text_box_ly=mtop+3*NUB+2*BOX_H-10;
+	
+	
+	setcolor(WHITE);
+	for(i=0;i<NUB+2*BOX_H-70;i++)
+		line(mleft+2*NUB+10,mtop+2*NUB+10+i,text_box_lx,mtop+2*NUB+10+i);
+	
+	
+	
+	
+	
+	setcolor(BLACK);
+	settextstyle(0,0,1);
+	if((i=strlen(textBuff))<44)
+	{
+		outtextxy(text_box_lx-20-8*i,text_box_ly-BOX_H-20,textBuff);
+	}
+	
+}
 
 /*************************************************************************************************/
 /*                                                                                               */
@@ -214,3 +249,4 @@ void CNumBox(int x,int y,char ch)
 	setcolor(BLACK);
 	outtextxy(x+BOX_L/2,y+BOX_H/6,a);
 }
+#endif

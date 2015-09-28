@@ -4,6 +4,9 @@
 /*                                                                                               */
 /*                                                                                               */
 /*************************************************************************************************/
+#ifndef _MOUSE.H_
+#define _MOUSE.H_
+
 #include "ui.h"
 #include <dos.h>
 #include <GRAPHICS.H>
@@ -178,84 +181,7 @@ void GetMouseXY()
 
 
 
-void flash_mouse()
-{   
-	int q=0;
-	float p=0;
-    int temp1=0;
-    int x,y,MouseMSG,M;
-	int tempx,tempy,mouseMsg;
 
-	char ch1;
-	tempx=tempy=100;
-	
-	GetMouseXY();
-	x=MouseX;
-	y=MouseY;
-	
-  
-
-        GetMouseXY();/*get current mouse position */
-        /*更新鼠标位置*/
-        if(tempx!=MouseX || tempy!=MouseY)
-        {
-            MouseOff(tempx,tempy);
-            MouseOn(MouseX,MouseY);        /*显示鼠标,但保存即将被鼠标覆盖的区域*/
-            tempx=MouseX;                  /* cache current mouse pos */
-            tempy=MouseY;
-        }
-        _AX=0x03;            /*读取鼠标按钮状态*/
-       geninterrupt(0x33);        /*产生33号鼠标软中断*/
-
-        if((_BX&1) && !(_BX&2))        /*鼠标左键被按下同时右键没有按下*/
-            {
-               MouseMSG=4;
-               M=MouseMSG;
-             }
-         if((_BX&2) && !(_BX&1))        /*鼠标右键被按下同时左键没有按下*/
-            {
-              MouseMSG=5;
-              M=MouseMSG;
-            }
-        if(_BX&1 && _BX&2)        /*鼠标左键和右键同时被按下*/
-           {
-             MouseMSG=3;
-             M=MouseMSG;
-           }
-        _AX=0x06;            /*读取鼠标按钮释放信息*/
-        _BX=0x00;            /*指定读取鼠标左键的释放信息*/
-        geninterrupt(0x33);        /*产生33号鼠标软中断*/
-        if(_BX==1)            /*如果鼠标左键的释放数为1*/
-           MouseMSG=2;            /*产生一个单击左键信息*/
-         if(_BX==0&&M==4)
-             if( tempx>=100&&tempx<=140&& tempy>=280&&tempy<=300)
-             {
-               setcolor(RED);
-               /*outtextxy(100,100,"111111111111111111111");*/
-               GetMouseXY();
-                if(tempx!=MouseX || tempy!=MouseY)
-                  {
-                         /*outtextxy(200,200,"2222222222222");*/
-                         putimage(300,270,ball,XOR_PUT);
-                         delay(100);
-
-                    }
-             }
-        /* if(_BX==1&&M==4)   */
-
- 
-
-         _AX=0x06;            /*读取鼠标按钮释放信息*/
-        _BX=0x01;            /*指定读取鼠标右键的释放信息*/
-        geninterrupt(0x33);        /*产生33号鼠标软中断*/
-        if(_BX==1)            /*如果鼠标左键的释放次数为1*/
-          MouseMSG=1;            /*产生一个单击右键信息*/
-
- 
-
-  
-
-}
 /*************************************************************************************************/
 /*                                                                                               */
 /*                                                                                               */
@@ -327,14 +253,19 @@ void showmouse(void)
 char mouse0x5()
 {
 	int ax, bx, cx, dx;
+	static int tmpx=0,tmpy=0;
 	int tx,ty;
 	int i=0,j=0;
 	
     ax = 0x03;
-	bx=0;
-    mouse(&ax, &bx, &cx, &dx); 
 	
-	if(bx==0x1)
+    mouse(&ax, &bx, &cx, &dx); 
+	MouseOff(tmpx,tmpy);
+	MouseOn(cx,dx);
+	tmpx=cx;
+	tmpy=dx;
+	
+	/* if(bx==0x1)
 	{
 		delay(10);
 		ax = 0x03;
@@ -361,10 +292,10 @@ char mouse0x5()
 			if(i<5&&j<4)
 				return Bottoms[i][j].ch;
 		}
-	}
+	} */
 	return '\0';
 }
 
-
+#endif
 
 

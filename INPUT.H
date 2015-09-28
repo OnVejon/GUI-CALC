@@ -4,6 +4,10 @@
 /*                                                                                               */
 /*                                                                                               */
 /*************************************************************************************************/
+#ifndef _INPUT.H_
+#define _INPUT.H_
+
+#include "mouse.h"
 #include "ui.h"
 #include <dos.h>
 #include <math.h>
@@ -21,7 +25,8 @@
 
 char GetNumCh()
 {
-	char ch;
+	char ch='\0';
+	ch=mouse0x5();
 	if(!kbhit())
 	{
 		if((ch=getch())==0x0)
@@ -36,11 +41,17 @@ char GetNumCh()
 		}else if(ch==0x1b||ch=='E'||ch=='e')
 		{
 			return 'E';
-		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='='||ch=='.'||ch=='\x0d'||ch=='('||ch==')'))
+		}else if(ch=='\x0d'||ch=='=')
+		{
+			return '=';
+		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='.'||ch=='('||ch==')'))
 		{
 			return ch;
 		}
 		
 	}
+	
+	
 	return '\0';
 }
+#endif
