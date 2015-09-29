@@ -10,43 +10,18 @@
 #include "ui.h"
 #include <dos.h>
 #include <GRAPHICS.H>
-
+#define LEFT_UP 0
+#define LEFT_DOWN 1
 
 int resetmouse(void);
 void showmouse(void);
-char mouse0x5();
+char far mouse_left();
+
+int MouseType=1;
 
 
-
-#include <dos.h >
-#include <conio.h>
-#include <graphics.h>
-#include <bios.h>
-#define MouseStatusMouseOn  1
-/*#include <E:\Win-TC\projects\Desk.c>*/
-/*#include <E:\Win-TC\projects\MouseR.c>*/         /*这里是包含文件头*/
-struct mouse
-{
-   int top;
-   int botton;
-   int left;
-   int rigth;
-}Smouse;
-extern void Dosk();
-
-  unsigned int size;
-  void *ball;
   
-int MouseX        =0;        /*存放鼠标的水平方向的值*/
-int MouseY        =0;
-char MouseType    =1;
 
-
-enum MOUSE_MESSAGES_CODE
-{        NOTHING=0,
-        LBUTTONCLK=1,
-
-};
 int arrowMousePixSave[16][10];
 int arrowMouseDraw[16][10]={    /*设计鼠标的形状,其中1:表示鼠标的边界,2:表示鼠标边界所包围的区域,3:表示鼠标以外的区域*/
  {1,1,3,3,3,3,3,3,3,3},
@@ -116,21 +91,7 @@ void MouseOn(int mousex,int mousey)
 			}
     }
 }
-void SetMouseHori(int minX,int maxX)
- {
-    _AX=0x07;
-    _CX=minX;
-    _DX=maxX;
-    geninterrupt(0x33);
-}
 
-void SetMouseVert(int minY,int maxY)
- {
-    _AX=0x08;
-    _CX=minY;
-    _DX=maxY;
-    geninterrupt(0x33);
-}
 /*隐藏鼠标*/
 void MouseOff(int mousex,int mousey)
 {
@@ -163,22 +124,6 @@ void MouseOff(int mousex,int mousey)
 
     }
 }
-void SetMouseXY(int x,int y)
- {
-   _AX=0x04;
-   _CX=x;
-   _DX=y;
-    geninterrupt(0x33);
- }
-void GetMouseXY()
-{
-    _AX=0x03;
-    geninterrupt(0x33);
-    MouseX=_CX;        /*将鼠标水平方向位置存放到MouseX*/
-    MouseY=_DX;        /*将鼠标垂直方向位置存放到MouseY*/
-
-}
-
 
 
 
@@ -250,10 +195,11 @@ void showmouse(void)
 /*                                                                                               */
 /*************************************************************************************************/
 
-char mouse0x5()
+char far mouse_left()
 {
 	int ax, bx, cx, dx;
 	static int tmpx=0,tmpy=0;
+	static int MSG=LEFT_UP;
 	int tx,ty;
 	int i=0,j=0;
 	
@@ -265,17 +211,18 @@ char mouse0x5()
 	tmpx=cx;
 	tmpy=dx;
 	
-	/* if(bx==0x1)
-	{
-		delay(10);
-		ax = 0x03;
-		bx=0;
-		mouse(&ax, &bx, &cx, &dx); 
+    if((bx&1) && !(bx&2))        /*鼠标左键被按下同时右键没有按下*/
+    {
+        MSG=LEFT_DOWN;
+	}		
+	ax=0x06;            /*读取鼠标按钮释放信息*/
+	bx=0x00;            /*指定读取鼠标左键的释放信息*/
+	mouse(&ax, &bx, &cx, &dx);	
 	
-		if(bx==0x1)
+	if(bx==1&&MSG==LEFT_DOWN)
 		{
-			
-			while((i<5&&j<4))
+			MSG=LEFT_UP;
+			while(i<6&&j<4)
 			{
 				tx=Bottoms[i][j].x;
 				ty=Bottoms[i][j].y;
@@ -287,12 +234,12 @@ char mouse0x5()
 					i++;
 					j=0;
 				}
-				
+					
 			}
-			if(i<5&&j<4)
+			if(i<6&&j<4)
 				return Bottoms[i][j].ch;
-		}
-	} */
+		}         
+
 	return '\0';
 }
 

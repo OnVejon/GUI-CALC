@@ -4,8 +4,8 @@ main()
 	
 	
 	initGraph();
-	resetmouse();
-	/*showmouse();*/
+	/*resetmouse();
+	showmouse();*/
 	
 	UI();
 	

@@ -120,7 +120,7 @@ void initBottoms()
 {
 	int i,j;
 	int mleft, mtop, mright, mbottom;
-	char num_ch[6][4]={"D0.=","123+","456-","789*","()^/","  CE"};
+	char num_ch[6][4]={"D0.=","123+","456-","789*","()^/","E CD"};
 	
 	mleft=max_x/2-(3*BOX_L);
    

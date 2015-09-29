@@ -26,13 +26,14 @@
 char GetNumCh()
 {
 	char ch='\0';
-	ch=mouse0x5();
-	if(!kbhit())
+	
+	if(kbhit())
 	{
 		if((ch=getch())==0x0)
 		{
 			ch=getch();
-		}else if(ch==0x8||ch=='D'||ch=='d')
+		}
+		if(ch==0x8||ch=='D'||ch=='d')
 		{
 			return 'D';
 		}else if(ch=='C'||ch=='c')

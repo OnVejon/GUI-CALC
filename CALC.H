@@ -33,7 +33,10 @@ void compute()
 	massage(textbuff);
 	while(1)
 	{
-		if((ch=GetNumCh())!='\0')
+		ch=mouse_left();
+		if(ch=='\0')
+			ch=GetNumCh();
+		if(ch!='\0'&&ch!=' ')
 		{
 			textbuff_1[j++]=ch;
 			textbuff_1[j]='\0';
@@ -209,6 +212,11 @@ void compute()
 						d_stack[++d_top]=0.0;
 					}
 					s_stack[++s_top]=ch;
+				}else
+				{
+					textbuff_1[--j]='\0';
+					textbuff_1[j-1]=ch;
+					s_stack[s_top]=ch;
 				}
 				
 				

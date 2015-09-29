@@ -14,7 +14,12 @@ main()
 	while(!kbhit())
 	{
 		
-		mouse0x5();
+		ch=mouse_left();
+		if(ch!='\0')
+		{
+			textbuff[i++]=ch;
+			massage(textbuff);
+		}
 	}
 	endGraph();
 }
