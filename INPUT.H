@@ -31,28 +31,28 @@ char GetNumCh()
 	{
 		if((ch=getch())==0x0)
 		{
-			ch=getch();
+			getch();
 		}
 		if(ch==0x8||ch=='D'||ch=='d')
 		{
-			return 'D';
+			ch='D';
 		}else if(ch=='C'||ch=='c')
 		{
-			return 'C';
+			ch='C';
 		}else if(ch==0x1b||ch=='E'||ch=='e')
 		{
-			return 'E';
+			ch='E';
 		}else if(ch=='\x0d'||ch=='=')
 		{
-			return '=';
+			ch='=';
 		}else if((ch>='0'&&ch<='9')||(ch=='+'||ch=='-'||ch=='*'||ch=='/'||ch=='^'||ch=='.'||ch=='('||ch==')'))
 		{
-			return ch;
+			ch=ch;
 		}
 		
 	}
 	
 	
-	return '\0';
+	return ch;
 }
 #endif
